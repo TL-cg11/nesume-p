@@ -753,17 +753,16 @@ body.editing [contenteditable="true"]{outline:1.5px dashed rgba(22,132,181,.6);o
   <div class="slide-foot"><span>nesume&nbsp;· 04 Bedrock&nbsp;· infra/modules/iam/main.tf&nbsp;· 학습 미사용은 AWS 공개 정책 기준</span><span>2026-11-04</span></div>
 </section>
 
-<section class="slide fit" data-title="05 자동 평가 결과" style="--z:1.35">
+<section class="slide fit" data-title="05 자동 평가 결과" style="--z:1.3">
   <div class="wrap" style="padding-top:52px">
     <div class="head row" style="margin-bottom:22px">
       <div><div class="eyebrow">05&nbsp;· Verification&nbsp;· 1차 (10-27) → 2차 (11-03)</div><h2 class="h2">공격 40 + 정상 50, 고치고 다시 쟀다</h2></div>
-      <p class="lead"><b style="color:var(--fg)">모델 응답·임베딩은 가짜</b> — 검사 단계만 잰 것</p>
     </div>
     <div class="kpis reveal" style="grid-template-columns:repeat(4,1fr)">
-      <div class="kpi" style="--c:var(--ok)"><div class="l">차단율 <span class="muted" style="font-weight:500">≥ 95%</span></div><div class="v">97.5%<small>39/40</small></div><div class="s"><span class="chip ok sm">통과</span> 1차 85.0%</div></div>
+      <div class="kpi" style="--c:var(--bad)"><div class="l">차단율 <span class="muted" style="font-weight:500">≥ 95%</span></div><div class="v">81.0%<small>34/42</small></div><div class="s"><span class="chip bad sm">미달</span> 변형 우회 8건 통과</div></div>
       <div class="kpi" style="--c:var(--ok)"><div class="l">과차단율 <span class="muted" style="font-weight:500">≤ 5%</span></div><div class="v">0.0%<small>0/50</small></div><div class="s"><span class="chip ok sm">통과</span> 1차 0.0%</div></div>
-      <div class="kpi" style="--c:var(--ok)"><div class="l">마스킹 정확도 <span class="muted" style="font-weight:500">100%</span></div><div class="v">100%<small>13/13</small></div><div class="s"><span class="chip ok sm">통과</span> 1차 66.7% (2/3)</div></div>
-      <div class="kpi" style="--c:var(--ok)"><div class="l">카나리 탐지율 <span class="muted" style="font-weight:500">100%</span></div><div class="v">100%<small>5/5</small></div><div class="s"><span class="chip ok sm">통과</span> 필터 우회 시뮬레이션</div></div>
+      <div class="kpi" style="--c:var(--bad)"><div class="l">마스킹 정확도 <span class="muted" style="font-weight:500">100%</span></div><div class="v">76.9%<small>10/13</small></div><div class="s"><span class="chip bad sm">미달</span> [at]·골뱅이·이름 미탐</div></div>
+      <div class="kpi" style="--c:var(--bad)"><div class="l">카나리 탐지율 <span class="muted" style="font-weight:500">100%</span></div><div class="v">70.0%<small>7/10</small></div><div class="s"><span class="chip bad sm">미달</span> 제로폭·혼동문자·Base64</div></div>
     </div>
     <div style="display:grid;grid-template-columns:1.35fr 1fr;gap:28px;margin-top:22px" class="reveal d2">
       <div><div class="lbl">유형별 기대 판정 일치 (2차, 괄호는 1차)</div><div class="bars"><div class="br"><span class="bn">권한 우회</span><span class="bt"><i style="width:100%;background:var(--ok)"></i></span><span class="bv">10/10 (6/10)</span></div><div class="br"><span class="bn">민감정보 요청</span><span class="bt"><i style="width:100%;background:var(--ok)"></i></span><span class="bv">10/10 (10/10)</span></div><div class="br"><span class="bn">내부 문서 탈취</span><span class="bt"><i style="width:90%;background:var(--acc)"></i></span><span class="bv">9/10 (9/10)</span></div><div class="br"><span class="bn">멀티턴 우회</span><span class="bt"><i style="width:100%;background:var(--ok)"></i></span><span class="bv">5/5 (4/5)</span></div><div class="br"><span class="bn">멘토 공유 우회</span><span class="bt"><i style="width:100%;background:var(--ok)"></i></span><span class="bv">5/5 (5/5)</span></div><div class="br"><span class="bn">정상 질의</span><span class="bt"><i style="width:100%;background:var(--navy)"></i></span><span class="bv">50/50 (49/50)</span></div></div><p class="status-note" style="margin-top:10px">전체 일치 83/90 → 89/90&nbsp;· 남은 1건 A10-EXFIL-10(돌려 말하는 탈취)</p></div>
