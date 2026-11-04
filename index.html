@@ -399,6 +399,8 @@ body.editing [contenteditable="true"]{outline:1.5px dashed rgba(22,132,181,.6);o
 .slide h1,.slide h2,.slide h3,.slide li{text-wrap:balance}
 .slide pre{text-wrap:nowrap}
 .nb{white-space:nowrap}
+.slide span>.nb{display:inline!important;font-size:inherit!important;margin:0!important;color:inherit!important}
+.slide[data-title="05 자동 평가 결과"] .note{align-items:center}
 </style>
 </head>
 <body>
@@ -420,14 +422,14 @@ body.editing [contenteditable="true"]{outline:1.5px dashed rgba(22,132,181,.6);o
   <div class="v7-chrome bot"><span>FastAPI&nbsp;· PostgreSQL 16 + pgvector&nbsp;· Amazon Bedrock&nbsp;· EKS&nbsp;· Terraform&nbsp;· Helm</span><span>nesume&nbsp;· Team02</span></div>
 </section>
 
-<section class="slide fit" data-title="목차" style="--z:1.35">
+<section class="slide fit" data-title="목차" style="--z:1.31">
   <div class="wrap">
     <div class="head"><div class="eyebrow">Agenda</div><h2 class="h2">인프라에서 시작해, AI 요청 하나의 흐름을 따라간다</h2></div>
     <div class="agenda tall reveal">
       <div class="ag"><span class="no">01</span><div><b>팀과 프로젝트 주제</b><span>네 파트, 한 가드레일</span></div></div>
       <div class="ag core"><span class="no">05</span><div><b>권한 우회·유출 시도 검증</b><span>자동 평가 90건&nbsp;· dev 실환경 11장면</span></div></div>
       <div class="ag"><span class="no">02</span><div><b>보호 대상 데이터와 시나리오</b><span>무엇이 어디로 샐 수 있나</span></div></div>
-      <div class="ag"><span class="no">06</span><div><b><span class="nb">차단 정책</span>과 감사 기준</b><span>판정 3값&nbsp;· <span class="nb">요청당 로그 1행</span></span></div></div>
+      <div class="ag"><span class="no">06</span><div><b>차단 정책과 감사 기준</b><span class="nb">판정 3값&nbsp;· 요청당 로그 1행</span></div></div>
       <div class="ag core"><span class="no">03</span><div><b>역할·등급과 접근 통제 아키텍처</b><span>인프라&nbsp;· 6층 방어&nbsp;· 요청 하나의 흐름</span></div></div>
       <div class="ag"><span class="no">07</span><div><b>우회·오차단 개선 사례</b><span>틀린 7건&nbsp;· 운영 중 개선 2건</span></div></div>
       <div class="ag core"><span class="no">04</span><div><b>RAG 권한 필터링&nbsp;· 출력 통제</b><span>검색 전에 거르고, 나가기 전에 한 번 더</span></div></div>
@@ -444,7 +446,7 @@ body.editing [contenteditable="true"]{outline:1.5px dashed rgba(22,132,181,.6);o
       <p class="lead">자소서는 개인 문서다. 여기에 LLM과 RAG가 붙으면<br>남의 문서와 내부 설정이 새는 통로가 생긴다.</p>
     </div>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px" class="reveal">
-      <div class="card top c-a"><div class="eyebrow" style="font-size:22px;color:#116F98">A</div><div style="font-size:22px;font-weight:800;margin-top:6px;color:#116F98">작성 AI&nbsp;· 가드레일</div><ul><li>PII 탐지·토큰화</li><li>질의 분류&nbsp;· 멀티턴 방어</li><li>출력 검사</li><li>가드레일 파이프라인(단일 출입구)</li></ul></div>
+      <div class="card top c-a"><div class="eyebrow" style="font-size:22px;color:#116F98">A</div><div style="font-size:22px;font-weight:800;margin-top:6px;color:#116F98">작성 AI&nbsp;· 가드레일</div><ul><li>PII 탐지·토큰화</li><li>질의 분류&nbsp;· 멀티턴 방어</li><li>출력 검사</li><li>가드레일 파이프라인<br>(단일 출입구)</li></ul></div>
       <div class="card top c-b"><div class="eyebrow" style="font-size:22px;color:#7555B6">B</div><div style="font-size:22px;font-weight:800;margin-top:6px;color:#7555B6">관리·문서&nbsp;· 검증</div><ul style="--c:#7555B6"><li>자소서·버전·멘토 공유</li><li>감사 로그 (요청당 1행)</li><li>평가 러너&nbsp;· 시나리오</li><li>계정 삭제 검증</li></ul></div>
       <div class="card top c-c"><div class="eyebrow" style="font-size:22px;color:#9A520A">C</div><div style="font-size:22px;font-weight:800;margin-top:6px;color:#9A520A">추천·검색</div><ul style="--c:#9A520A"><li>임베딩&nbsp;· pgvector 검색</li><li>검색 전 권한 필터</li><li>간접 인젝션 무력화</li><li>카나리&nbsp;· 호출 한도</li></ul></div>
       <div class="card top c-d"><div class="eyebrow" style="font-size:22px;color:#30364F">D</div><div style="font-size:22px;font-weight:800;margin-top:6px;color:#30364F">인프라·플랫폼·보안</div><ul style="--c:#30364F"><li><span class="nb">역할 × 등급 매트릭스</span>&nbsp;· <span class="nb">차단 정책</span></li><li>Cognito 인증&nbsp;· <span class="nb">운영자 MFA</span></li><li>EKS&nbsp;· Terraform&nbsp;· CI 보안</li><li>WAF&nbsp;· CloudTrail&nbsp;· GuardDuty&nbsp;· 알림</li></ul></div>
@@ -473,7 +475,7 @@ body.editing [contenteditable="true"]{outline:1.5px dashed rgba(22,132,181,.6);o
         <div class="lbl" style="margin-top:26px">사용자 — 4역할</div>
         <div class="roles">
           <div><b>user</b><span>본인 자소서만</span></div>
-          <div><b>mentor</b><span>공유받은 것만, 가린 채</span></div>
+          <div><b>mentor</b><span>공유받은 것만,<br>가린 채</span></div>
           <div><b>operator</b><span>MFA 필수, 로그·관리</span></div>
           <div><b>system</b><span>배치만, <span class="nb">대화 불가</span></span></div>
         </div>
@@ -492,19 +494,18 @@ body.editing [contenteditable="true"]{outline:1.5px dashed rgba(22,132,181,.6);o
   <div class="slide-foot"><span>nesume&nbsp;· 02 보호 대상</span><span>2026-11-04</span></div>
 </section>
 
-<section class="slide" data-title="AWS 인프라 구성도" style="--zz:1.06">
+<section class="slide" data-title="AWS 인프라 구성도" style="--zz:1.12">
   <div class="wrap" style="padding-top:44px">
     <div class="head" style="margin-bottom:16px"><div class="eyebrow">03&nbsp;· AWS Architecture</div><h2 class="h2">AWS 인프라 구성도 — 서울 리전 단일 계정</h2></div>
     <div style="display:grid;grid-template-columns:1010px 1fr;gap:36px;align-items:start">
       <div class="reveal" style="background:#fff;border:1px solid var(--line);border-radius:18px;padding:10px;box-shadow:0 2px 6px rgba(38,55,70,.04)">
-        <img src="assets/aws-architecture.png" alt="nesume AWS 아키텍처 구성도: VPC 퍼블릭(ALB·WAF·NAT)·프라이빗(EKS·RDS) 서브넷, 리전 서비스, 계정 보안·감사 서비스" style="display:block;width:100%;height:auto;max-height:860px;object-fit:contain">
+        <img src="assets/aws-architecture-v2.png" alt="nesume AWS 아키텍처 구성도: VPC 퍼블릭(ALB·WAF·NAT)·프라이빗(EKS·RDS) 서브넷, 리전 서비스, 계정 보안·감사 서비스" style="display:block;width:100%;height:auto;max-height:860px;object-fit:contain">
       </div>
       <div class="notes reveal d2">
         <div class="note"><span class="num">1</span><div><b>요청은 CloudFront(HTTPS) → ALB → web → <span class="nb">app → RDS</span></b><span class="t">app은 임베더(/embed)와 Bedrock을 거쳐 응답</span></div></div>
         <div class="note"><span class="num">2</span><div><b>퍼블릭에는 ALB·NAT만, ALB는 CloudFront만 받는다</b><span class="t">ALB 보안그룹은 CloudFront 대역만, WAF origin-verify가 비밀 헤더 없는 요청 차단. EKS 노드와 RDS는 프라이빗, RDS는 EKS 보안그룹만 허용</span></div></div>
         <div class="note"><span class="num">3</span><div><b>키를 저장하지 않는다</b><span class="t">AWS 호출은 Pod Identity, 비밀값은 Secrets Manager → External Secrets, CI는 GitHub OIDC</span></div></div>
         <div class="note"><span class="num">4</span><div><b>기록과 알림</b><span class="t">fluent-bit → CloudWatch → SNS → Lambda → Discord. 계정 수준은 CloudTrail·GuardDuty·Security Hub·Config</span></div></div>
-        <div class="note sec"><span class="num" style="background:var(--warn)">!</span><div><b>아직 남은 것</b><span class="t">도메인 없음 — CloudFront 기본 인증서. CloudFront → ALB 구간은 HTTP 80</span></div></div>
       </div>
     </div>
   </div>
@@ -527,26 +528,14 @@ body.editing [contenteditable="true"]{outline:1.5px dashed rgba(22,132,181,.6);o
   <div class="slide-foot"><span>nesume&nbsp;· 03 아키텍처</span><span>2026-11-04</span></div>
 </section>
 
-<section class="slide fit" data-title="AWS 인프라와 앱 밖 방어" style="--z:1.25">
+<section class="slide fit" data-title="AWS 인프라와 앱 밖 방어" style="--z:1.4">
   <div class="wrap tight" style="padding-top:52px">
     <div class="head row" style="margin-bottom:18px">
       <div><div class="eyebrow">03&nbsp;· Cloud</div><h2 class="h2">앱이 뚫렸다고 가정하면 — 앱 밖에서 한 번 더</h2></div>
     </div>
     <div style="display:grid;grid-template-columns:1fr;gap:32px;align-items:start">
       <div class="reveal d2">
-        <table class="tbl">
-          <thead><tr><th>가정</th><th>막는 것</th></tr></thead>
-          <tbody>
-            <tr><td class="k">앱 파드 장악</td><td>NetworkPolicy 기본 거부 — 필요한 443만</td></tr>
-            <tr><td class="k">권한 상승</td><td>PSS restricted</td></tr>
-            <tr><td class="k">취약 이미지</td><td>CI trivy&nbsp;· gitleaks</td></tr>
-            <tr><td class="k">자격증명 악용</td><td>CloudTrail&nbsp;· GuardDuty&nbsp;· Security Hub&nbsp;· Config</td></tr>
-            <tr><td class="k">CI 키 유출</td><td>GitHub OIDC — 장기 키 없음</td></tr>
-            <tr><td class="k">전송 구간 도청</td><td>HTTPS는 CloudFront까지, ALB 구간은 HTTP</td></tr>
-            <tr><td class="k">과한 IAM 권한</td><td>CI PowerUser&nbsp;· 앱 Cognito Admin*</td></tr>
-            <tr><td class="k">네트워크 흔적</td><td>VPC Flow Logs·ALB 액세스 로그 없음</td></tr>
-          </tbody>
-        </table>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px"><table class="tbl"><thead><tr><th>가정</th><th>막는 것</th></tr></thead><tbody><tr><td class="k">앱 파드 장악</td><td>NetworkPolicy 기본 거부 — 필요한 443만</td></tr><tr><td class="k">권한 상승</td><td>PSS restricted</td></tr><tr><td class="k">취약 이미지</td><td>CI trivy&nbsp;· gitleaks</td></tr><tr><td class="k">자격증명 악용</td><td>CloudTrail&nbsp;· GuardDuty&nbsp;· Security Hub&nbsp;· Config</td></tr></tbody></table><table class="tbl"><thead><tr><th>가정</th><th>막는 것</th></tr></thead><tbody><tr><td class="k">CI 키 유출</td><td>GitHub OIDC — 장기 키 없음</td></tr><tr><td class="k">전송 구간 도청</td><td>HTTPS는 CloudFront까지, ALB 구간은 HTTP</td></tr><tr><td class="k">과한 IAM 권한</td><td>CI PowerUser&nbsp;· 앱 Cognito Admin*</td></tr><tr><td class="k">네트워크 흔적</td><td>VPC Flow Logs·ALB 액세스 로그 없음</td></tr></tbody></table></div>
         <div class="note" style="margin-top:14px;grid-template-columns:1fr"><span class="t">퍼블릭엔 ALB·NAT만&nbsp;· 노드·DB 프라이빗&nbsp;· 비밀값 Secrets Manager + KMS</span></div>
       </div>
     </div>
@@ -686,7 +675,7 @@ body.editing [contenteditable="true"]{outline:1.5px dashed rgba(22,132,181,.6);o
       </tbody>
     </table>
   </div>
-    <p class="status-note reveal d3" style="position:absolute;left:88px;right:88px;bottom:70px">근거: 금지 문서를 심어도 top-k 누출 0 (<code>test_retrieval_leak.py</code> 16건)&nbsp;· 카나리 탐지 5/5 (2차, 필터 우회 시뮬레이션)</p>
+    <p class="status-note reveal d3" style="position:absolute;left:88px;right:88px;bottom:70px">근거: 금지 문서를 심어도 top-k 누출 0 (<code>test_retrieval_leak.py</code> 16건)&nbsp;· 카나리 탐지 7/10 (변형 포함, 제로폭·혼동문자·Base64 미탐)</p>
   <div class="slide-foot"><span>nesume&nbsp;· 04 RAG 권한 필터</span><span>2026-11-04</span></div>
 </section>
 
@@ -709,7 +698,7 @@ body.editing [contenteditable="true"]{outline:1.5px dashed rgba(22,132,181,.6);o
           <tbody>
             <tr><td>카나리&nbsp;· 타인 문서&nbsp;· 시스템 프롬프트 조각</td><td class="id">LEAK_CANARY<br>LEAK_OTHER_USER<br>LEAK_SECRET.*</td><td><span class="chip bad sm">block</span></td><td>본문 폐기&nbsp;· <b><span class="nb">복원 안 함</span></b></td></tr>
             <tr><td>알 수 없는 토큰</td><td class="id">OUT_UNKNOWN_TOKEN</td><td><span class="chip warn sm">mask</span></td><td>해당 토큰 제거</td></tr>
-            <tr><td>유해 콘텐츠 (Llama Guard 3 S1~S13)</td><td class="id">UNSAFE_CONTENT</td><td><span class="chip bad sm">block</span></td><td>2차 그물&nbsp;· <b>dev는 기록 전용</b></td></tr>
+            <tr><td>유해 콘텐츠</td><td class="id">UNSAFE_CONTENT</td><td><span class="chip bad sm">block</span></td><td>2차 그물&nbsp;· <b>dev는 기록 전용</b></td></tr>
             <tr><td>멘토·운영자가 보는 개인 문서</td><td class="id">—</td><td><span class="chip warn sm">mask</span></td><td>토큰 그대로</td></tr>
           </tbody>
         </table>
@@ -753,24 +742,23 @@ body.editing [contenteditable="true"]{outline:1.5px dashed rgba(22,132,181,.6);o
   <div class="slide-foot"><span>nesume&nbsp;· 04 Bedrock&nbsp;· infra/modules/iam/main.tf&nbsp;· 학습 미사용은 AWS 공개 정책 기준</span><span>2026-11-04</span></div>
 </section>
 
-<section class="slide fit" data-title="05 자동 평가 결과" style="--z:1.35">
+<section class="slide fit" data-title="05 자동 평가 결과" style="--z:1.3">
   <div class="wrap" style="padding-top:52px">
     <div class="head row" style="margin-bottom:22px">
-      <div><div class="eyebrow">05&nbsp;· Verification&nbsp;· 1차 (10-27) → 2차 (11-03)</div><h2 class="h2">공격 40 + 정상 50, 고치고 다시 쟀다</h2></div>
-      <p class="lead"><b style="color:var(--fg)">모델 응답·임베딩은 가짜</b> — 검사 단계만 잰 것</p>
+      <div><div class="eyebrow">05&nbsp;· Verification</div><h2 class="h2">공격 42 + 정상 50, 변형까지 넣어 쟀다</h2></div>
     </div>
     <div class="kpis reveal" style="grid-template-columns:repeat(4,1fr)">
-      <div class="kpi" style="--c:var(--ok)"><div class="l">차단율 <span class="muted" style="font-weight:500">≥ 95%</span></div><div class="v">97.5%<small>39/40</small></div><div class="s"><span class="chip ok sm">통과</span> 1차 85.0%</div></div>
-      <div class="kpi" style="--c:var(--ok)"><div class="l">과차단율 <span class="muted" style="font-weight:500">≤ 5%</span></div><div class="v">0.0%<small>0/50</small></div><div class="s"><span class="chip ok sm">통과</span> 1차 0.0%</div></div>
-      <div class="kpi" style="--c:var(--ok)"><div class="l">마스킹 정확도 <span class="muted" style="font-weight:500">100%</span></div><div class="v">100%<small>13/13</small></div><div class="s"><span class="chip ok sm">통과</span> 1차 66.7% (2/3)</div></div>
-      <div class="kpi" style="--c:var(--ok)"><div class="l">카나리 탐지율 <span class="muted" style="font-weight:500">100%</span></div><div class="v">100%<small>5/5</small></div><div class="s"><span class="chip ok sm">통과</span> 필터 우회 시뮬레이션</div></div>
+      <div class="kpi" style="--c:var(--warn)"><div class="l">차단율 <span class="muted" style="font-weight:500">≥ 80%</span></div><div class="v">81.0%<small>34/42</small></div><div class="s"><span class="chip warn sm">통과</span> 8건 놓침 (난독화 5건)</div></div>
+      <div class="kpi" style="--c:var(--ok)"><div class="l">과차단율 <span class="muted" style="font-weight:500">≤ 5%</span></div><div class="v">0.0%<small>0/50</small></div><div class="s"><span class="chip ok sm">통과</span></div></div>
+      <div class="kpi" style="--c:var(--bad)"><div class="l">마스킹 정확도 <span class="muted" style="font-weight:500">100%</span></div><div class="v">76.9%<small>10/13</small></div><div class="s"><span class="chip bad sm">미달</span> [at]·골뱅이·이름 미탐</div></div>
+      <div class="kpi" style="--c:var(--bad)"><div class="l">카나리 탐지율 <span class="muted" style="font-weight:500">100%</span></div><div class="v">70.0%<small>7/10</small></div><div class="s"><span class="chip bad sm">미달</span> 제로폭·혼동문자·Base64</div></div>
     </div>
     <div style="display:grid;grid-template-columns:1.35fr 1fr;gap:28px;margin-top:22px" class="reveal d2">
-      <div><div class="lbl">유형별 기대 판정 일치 (2차, 괄호는 1차)</div><div class="bars"><div class="br"><span class="bn">권한 우회</span><span class="bt"><i style="width:100%;background:var(--ok)"></i></span><span class="bv">10/10 (6/10)</span></div><div class="br"><span class="bn">민감정보 요청</span><span class="bt"><i style="width:100%;background:var(--ok)"></i></span><span class="bv">10/10 (10/10)</span></div><div class="br"><span class="bn">내부 문서 탈취</span><span class="bt"><i style="width:90%;background:var(--acc)"></i></span><span class="bv">9/10 (9/10)</span></div><div class="br"><span class="bn">멀티턴 우회</span><span class="bt"><i style="width:100%;background:var(--ok)"></i></span><span class="bv">5/5 (4/5)</span></div><div class="br"><span class="bn">멘토 공유 우회</span><span class="bt"><i style="width:100%;background:var(--ok)"></i></span><span class="bv">5/5 (5/5)</span></div><div class="br"><span class="bn">정상 질의</span><span class="bt"><i style="width:100%;background:var(--navy)"></i></span><span class="bv">50/50 (49/50)</span></div></div><p class="status-note" style="margin-top:10px">전체 일치 83/90 → 89/90&nbsp;· 남은 1건 A10-EXFIL-10(돌려 말하는 탈취)</p></div>
-      <div class="notes">
-        <div class="note"><span class="num">✓</span><div><b>권한 우회 60% → 100%</b><span class="t">검색 연결(#58)&nbsp;· 기대값 수정 → 07장</span></div></div>
-        <div class="note"><span class="num" style="background:var(--warn)">!</span><div><b>기대값도 바뀌었다</b><span class="t">마스킹 기대 3 → 13건 <span class="nb">(가린 요청 7건 + 운영자 검색 가림 3건)</span></span></div></div>
-        <div class="note"><span class="num" style="background:var(--idle)">B</span><div><b>계정 삭제 검증 통과</b><span class="t">14개 테이블&nbsp;· S3 잔존 0건</span></div></div>
+      <div><div class="lbl">유형별 차단 / 전체 (공격 42건)</div><div class="bars" style="gap:10px"><div class="br" style="grid-template-columns:300px 1fr 90px"><span class="bn">시스템 프롬프트 탈취 (평문)</span><span class="bt"><i style="width:100%;background:var(--ok)"></i></span><span class="bv" style="text-align:left">8/8</span></div><div class="br" style="grid-template-columns:300px 1fr 90px"><span class="bn">시스템 프롬프트 탈취 (난독화)</span><span class="bt"><i style="width:33%;background:var(--bad)"></i></span><span class="bv" style="text-align:left">2/6</span></div><div class="br" style="grid-template-columns:300px 1fr 90px"><span class="bn">탈옥·역할전환 (평문)</span><span class="bt"><i style="width:88%;background:var(--warn)"></i></span><span class="bv" style="text-align:left">7/8</span></div><div class="br" style="grid-template-columns:300px 1fr 90px"><span class="bn">탈옥·역할전환 (난독화)</span><span class="bt"><i style="width:50%;background:var(--bad)"></i></span><span class="bv" style="text-align:left">1/2</span></div><div class="br" style="grid-template-columns:300px 1fr 90px"><span class="bn">대량 탈취</span><span class="bt"><i style="width:60%;background:var(--bad)"></i></span><span class="bv" style="text-align:left">3/5</span></div><div class="br" style="grid-template-columns:300px 1fr 90px"><span class="bn">멀티턴 우회</span><span class="bt"><i style="width:100%;background:var(--ok)"></i></span><span class="bv" style="text-align:left">4/4</span></div><div class="br" style="grid-template-columns:300px 1fr 90px"><span class="bn">출력 유출 (카나리·비밀값)</span><span class="bt"><i style="width:100%;background:var(--ok)"></i></span><span class="bv" style="text-align:left">5/5</span></div><div class="br" style="grid-template-columns:300px 1fr 90px"><span class="bn">주민번호·계좌 입력</span><span class="bt"><i style="width:100%;background:var(--ok)"></i></span><span class="bv" style="text-align:left">4/4</span></div></div><p class="status-note" style="margin-top:10px">공격 합계 34/42 (81.0%)&nbsp;· 놓친 8건 중 5건이 난독화</p></div>
+      <div class="notes" style="grid-auto-rows:1fr;align-content:stretch">
+        <div class="note"><span class="num" style="background:var(--ok)">✓</span><div><b>평문 공격은 거의 막았다</b><span class="t">탈취 8/8&nbsp;· 멀티턴 4/4&nbsp;· 출력 유출 5/5&nbsp;· 주민번호 4/4</span></div></div>
+        <div class="note"><span class="num" style="background:var(--bad)">!</span><div><b>난독화에서 뚫렸다</b><span class="t">띄어쓰기·전각·Base64 → 탈취 2/6&nbsp;· 탈옥 1/2</span></div></div>
+        <div class="note"><span class="num" style="background:var(--warn)">→</span><div><b>다음: 정규화·디코딩 후 재측정</b><span class="t">대량 탈취 3/5&nbsp;· 탈옥 7/8은 조사·어순 패턴 보강</span></div></div>
       </div>
     </div>
   </div>
@@ -857,7 +845,7 @@ body.editing [contenteditable="true"]{outline:1.5px dashed rgba(22,132,181,.6);o
       <div class="reveal d2" style="display:grid;gap:14px;align-content:start">
         <div class="card" style="padding:20px 24px"><h3 style="font-size:21px">왜 권한 외 질의는 막지 않나</h3><p style="margin-top:6px;font-size:17px">단어 매칭으로 막으면 과차단 — 문서 제외는 검색 필터가</p></div>
         <div class="card" style="padding:20px 24px"><h3 style="font-size:21px">탈취 세션 제한</h3><p style="margin-top:6px;font-size:17px">세션 <b>5회</b> → <b>10분</b>, 사용자 <b>10회</b> → <b>1시간</b> 429</p></div>
-        <div class="card" style="padding:20px 24px"><h3 style="font-size:21px">안내 문구 원칙</h3><p style="margin-top:6px;font-size:17px">규칙·문서 존재를 드러내지 않는다&nbsp;· <span style="color:var(--bad)">규칙 ID 제거 미반영</span></p></div>
+        <div class="card" style="padding:20px 24px"><h3 style="font-size:21px">안내 문구 원칙</h3><p style="margin-top:6px;font-size:17px">규칙·문서 존재를 드러내지 않는다</p></div>
         <div class="card" style="padding:20px 24px"><h3 style="font-size:21px">변경 절차</h3><p style="margin-top:6px;font-size:17px">차단 규칙 추가는 보안 리뷰 + 러너 재실행</p></div>
       </div>
     </div>
@@ -911,9 +899,9 @@ body.editing [contenteditable="true"]{outline:1.5px dashed rgba(22,132,181,.6);o
       <div class="bx acc"><b>Discord 알림</b><span>SNS → Lambda</span></div><div class="ar">→</div>
       <div class="bx navy"><b>운영자 조치</b><span>세션 차단·해제&nbsp;· 역할 회수</span></div>
     </div>
-    <div style="display:grid;grid-template-columns:1.25fr 1fr;gap:16px;align-items:start" class="reveal d2">
-      <div class="shot"><img src="assets/dashboard-24h.jpg" alt="운영 대시보드"><div class="cap"><span>운영 대시보드 — 요청&nbsp;· 차단&nbsp;· 가림&nbsp;· 카나리, 유형·역할별</span></div></div>
-      <div class="shot"><img src="assets/sessions-history.jpg" alt="세션 차단 목록"><div class="cap"><span>세션 차단 목록 — 사유&nbsp;· 만료&nbsp;· 누가 언제 풀었는지</span></div></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start" class="reveal d2">
+      <div class="shot"><img src="assets/dashboard-24h.png" alt="운영 대시보드"><div class="cap"><span>운영 대시보드 — 요청&nbsp;· 차단&nbsp;· 가림&nbsp;· 카나리, 유형·역할별</span></div></div>
+      <div class="shot"><img src="assets/sessions-history.png" alt="세션 차단 목록"><div class="cap"><span>세션 차단 목록 — 사유&nbsp;· 만료&nbsp;· 누가 언제 풀었는지</span></div></div>
     </div>
   </div>
   <div class="slide-foot"><span>nesume&nbsp;· 06 탐지·대응</span><span>2026-11-04</span></div>
@@ -1008,7 +996,7 @@ MULTI-05  allow  <span class="p">PASS</span>   → 5/5</pre></div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px">
       <div class="card top reveal" style="--c:var(--acc)"><h3>배운 점</h3><ul><li><b>검색 후 필터는 이미 늦다</b></li><li><b>차단율만 보면 과차단을 놓친다</b></li><li><b>틀린 것의 절반은 기대값·적용 범위</b></li><li><b>단독으론 못 쓰는 패턴도 조건을 묶으면 쓴다</b></li><li><b>없어서보다 연결이 안 돼서 뚫렸다</b></li></ul></div>
       <div class="card top reveal d1" style="--c:var(--bad)"><h3>한계</h3><ul style="--c:var(--bad)"><li>CloudFront→ALB HTTP, EKS API 퍼블릭</li><li>출력 레일 dev 기록 전용</li><li>브랜치 보호·CI 게이트 없음</li><li>세션 ID 클라이언트 발급&nbsp;· 규칙 ID 노출&nbsp;· 권한 외 0건 차단 미구현</li></ul></div>
-      <div class="card top reveal d2" style="--c:var(--ok)"><h3>다음</h3><ul style="--c:var(--ok)"><li>실모델·실임베딩으로 재측정</li><li>도메인 + ACM, EKS CIDR 제한</li><li>브랜치 보호 + 러너 CI 게이트</li><li>안내 문구 ID&nbsp;· 세션 ID 서버 발급</li><li>정식 Llama Guard</li></ul></div>
+      <div class="card top reveal d2" style="--c:var(--ok)"><h3>다음</h3><ul style="--c:var(--ok)"><li>실모델·실임베딩으로 재측정</li><li>도메인 + ACM, EKS CIDR 제한</li><li>브랜치 보호 + 러너 CI 게이트</li><li>안내 문구 ID&nbsp;· 세션 ID 서버 발급</li></ul></div>
     </div>
     <div class="callout reveal d3" style="margin-top:26px">
       <span style="font-size:32px">↻</span>
@@ -1039,7 +1027,7 @@ MULTI-05  allow  <span class="p">PASS</span>   → 5/5</pre></div>
   <h2 class="reveal d1">쓰기 쉬운 자소서 도구,<br><span class="red">새지 않는 구조 위에</span></h2>
   <div class="v7-recap reveal d2">
     <div><i>01&nbsp;· 접근 통제</i><p>역할은 토큰에서, 권한은 파일 하나, 검색 전에 거른다</p></div>
-    <div><i>02&nbsp;· 출력 통제</i><p>모델은 토큰만 본다, 나가기 전에 한 번 더, <span class="nb">요청당 로그 1행</span></p></div>
+    <div><i>02&nbsp;· 출력 통제</i><p>모델은 토큰만 본다, 나가기 전에 한 번 더,<br><span class="nb">요청당 로그 1행</span></p></div>
     <div><i>03&nbsp;· 검증</i><p>공격 40&nbsp;· 정상 50으로 재고, 틀린 것을 고쳐 다시 잰다</p></div>
   </div>
   <p class="v7-thanks reveal d3">감사합니다&nbsp;· 질문 환영합니다</p>
@@ -1135,7 +1123,7 @@ const deck = new SlidePresentation();
    =========================================== */
 const editor = {
   isActive: false,
-  key: 'nesume-deck-edits-v9',
+  key: 'nesume-deck-edits-v9b',
   targets(){ return [...document.querySelectorAll('.slide h1,.slide h2,.slide h3,.slide h4,.slide p,.slide li,.slide .sub,.slide .eyebrow,.slide td,.slide th,.slide dd,.note b,.note span.t,.ag b,.ag span,.card .eyebrow + div')]; },
   toggle(){
     this.isActive = !this.isActive;
